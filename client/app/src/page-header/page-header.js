@@ -1,35 +1,59 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faEnvelope, faWifi } from '@fortawesome/free-solid-svg-icons';
+import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import './page-header.css';
 
 const PageHeader = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand" href="/">Boilerplate Django App</a>
-      <button className="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbar-color"
-        aria-controls="navbar-color" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon" />
-      </button>
-
-      <div className="collapse navbar-collapse" id="navbar-color">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
-            <a className="nav-link" href="/">
-              <FontAwesomeIcon icon={faHome} />&nbsp;
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/">
-              <FontAwesomeIcon icon={faEnvelope} />&nbsp;
-              Contact
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <Navbar bg="primary" expand="lg" variant="dark">
+      <Navbar.Brand href="/">Boilerplate Django App</Navbar.Brand>
+      <Navbar.Toggle aria-controls="navbar-minty" />
+      <Navbar.Collapse id="navbar-minty">
+        <Nav className="mr-auto">
+          <Nav.Link href="/" active>
+            <span className="icon">
+              <FontAwesomeIcon icon={faHome} />
+            </span>
+            <span className="label">Home</span>
+          </Nav.Link>
+          <Nav.Link href="/">
+            <span className="icon">
+              <FontAwesomeIcon icon={faEnvelope} />
+            </span>
+            <span className="label">Contact</span>
+          </Nav.Link>
+          <NavDropdown title="Products" id="navbar-minty-dropdown">
+            <NavDropdown.Item href="/">
+              <span className="icon">
+                <FontAwesomeIcon icon={faLinux} />
+              </span>
+              <span className="label">Item 1</span>
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/">
+              <span className="icon">
+                <FontAwesomeIcon icon={faApple} />
+              </span>
+              <span className="label">Item 2</span>
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/">
+              <span className="icon">
+                <FontAwesomeIcon icon={faWindows} />
+              </span>
+              <span className="label">Item 3</span>
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/">
+              <span className="icon">
+                <FontAwesomeIcon icon={faWifi} />
+              </span>
+              <span className="label">Separated Item</span>
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   )
 };
 

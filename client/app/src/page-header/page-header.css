@@ -1,0 +1,7 @@
+.dropdown-item span.icon, .navbar-nav span.icon {
+  width: 1rem;
+}
+
+.dropdown-item span.label, .navbar-nav span.label {
+  margin-left: .5rem;
+}
