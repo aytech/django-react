@@ -5,3 +5,8 @@
 .dropdown-item span.label, .navbar-nav span.label {
   margin-left: .5rem;
 }
+
+.login.nav-item {
+  cursor: pointer;
+  color: white;
+}
