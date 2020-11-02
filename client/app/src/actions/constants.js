@@ -1,1 +1,3 @@
 export const TOGGLE_LOGIN_MODAL = 'TOGGLE_LOGIN_MODAL'
+export const UPDATE_USER = 'UPDATE_USER'
+export const USER_LOGIN = 'USER_LOGIN'

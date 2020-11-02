@@ -4,15 +4,30 @@ import { faHome, faEnvelope, faWifi, faUser, faTimes, faSignInAlt } from '@forta
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons';
 import { Navbar, Nav, NavDropdown, Modal, Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { toggleLoginModal } from '../../actions/mainActions';
+import {
+  login,
+  toggleLoginModal,
+  updateUser
+} from '../../actions/mainActions';
 import './page-header.css';
 
 const PageHeader = (props) => {
   const openModal = () => props.toggleLoginModal(true)
   const closeModal = () => props.toggleLoginModal(false)
   const login = () => {
-    alert("Logging in")
-    closeModal()
+    props.login(props.state.user)
+  }
+  const updateUsername = (event) => {
+    props.updateUser({
+      username: event.target.value,
+      password: props.state.user.password
+    })
+  }
+  const updatePassword = (event) => {
+    props.updateUser({
+      username: props.state.user.username,
+      password: event.target.value
+    })
   }
   return (
     <React.Fragment>
@@ -74,17 +89,17 @@ const PageHeader = (props) => {
       <Modal show={ props.state.isLoginModalShown } onHide={ closeModal }>
         <Modal.Header closeButton>
           <Modal.Title>
-            <FontAwesomeIcon icon={faUser}/>
+            <FontAwesomeIcon icon={ faUser } />
             <span className="label">Login</span>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group controlId="username">
-              <Form.Control type="email" placeholder="Your user name" />
+              <Form.Control type="email" placeholder="Your user name" onChange={ updateUsername } />
             </Form.Group>
             <Form.Group controlId="password">
-              <Form.Control type="password" placeholder="Your password" />
+              <Form.Control type="password" placeholder="Your password" onChange={ updatePassword } />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -107,7 +122,9 @@ const mapStateToProps = state => ({
   ...state
 });
 const mapDispatchToProps = dispatch => ({
-  toggleLoginModal: (status) => dispatch(toggleLoginModal(status))
+  login: (user) => dispatch(login(user)),
+  toggleLoginModal: (status) => dispatch(toggleLoginModal(status)),
+  updateUser: (user) => dispatch(updateUser(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageHeader);

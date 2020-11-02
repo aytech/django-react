@@ -5,7 +5,11 @@ import appReducer from './reducers/appReducer';
 
 const initialState = {
   state: {
-    isLoginModalShown: false
+    isLoginModalShown: false,
+    user: {
+      username: '',
+      password: ''
+    }
   }
 };
 

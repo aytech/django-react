@@ -1,4 +1,7 @@
-import { TOGGLE_LOGIN_MODAL } from '../actions/constants';
+import {
+  TOGGLE_LOGIN_MODAL,
+  UPDATE_USER
+} from '../actions/constants';
 
 const mainReducer = (state = {}, action) => {
   switch (action.type) {
@@ -6,6 +9,11 @@ const mainReducer = (state = {}, action) => {
       return {
         ...state,
         isLoginModalShown: action.status
+      }
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: action.user
       }
     default:
       return state;
