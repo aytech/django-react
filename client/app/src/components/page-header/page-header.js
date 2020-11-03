@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faEnvelope, faWifi, faUser, faTimes, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons';
-import { Navbar, Nav, NavDropdown, Modal, Button, Form } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Modal, Button, Form, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {
   login,
@@ -15,17 +15,17 @@ const PageHeader = (props) => {
   const openModal = () => props.toggleLoginModal(true)
   const closeModal = () => props.toggleLoginModal(false)
   const login = () => {
-    props.login(props.state.user)
+    props.login(props.header.user)
   }
   const updateUsername = (event) => {
     props.updateUser({
       username: event.target.value,
-      password: props.state.user.password
+      password: props.header.user.password
     })
   }
   const updatePassword = (event) => {
     props.updateUser({
-      username: props.state.user.username,
+      username: props.header.user.username,
       password: event.target.value
     })
   }
@@ -86,7 +86,7 @@ const PageHeader = (props) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <Modal show={ props.state.isLoginModalShown } onHide={ closeModal }>
+      <Modal show={ props.header.isLoginModalShown } onHide={ closeModal }>
         <Modal.Header closeButton>
           <Modal.Title>
             <FontAwesomeIcon icon={ faUser } />
@@ -101,6 +101,8 @@ const PageHeader = (props) => {
             <Form.Group controlId="password">
               <Form.Control type="password" placeholder="Your password" onChange={ updatePassword } />
             </Form.Group>
+            <Alert variant="secondary" dismissible>Danger content here</Alert>
+            <Alert variant="success" dismissible>Success content here</Alert>
           </Form>
         </Modal.Body>
         <Modal.Footer>

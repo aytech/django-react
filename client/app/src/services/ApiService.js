@@ -1,6 +1,9 @@
+import Cookies from 'universal-cookie/lib'
+
 class ApiService {
   apiBase = '/api';
   authPath = '/auth/';
+  cookies = new Cookies()
 
   async getResource(url, data) {
     const resource = await fetch(`${this.apiBase}${url}`, data);
@@ -12,7 +15,10 @@ class ApiService {
   login = async (user) => {
     const data = {
       body: JSON.stringify(user),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'X-CSRFToken': this.cookies.get('csrftoken')
+      },
       method: 'POST',
       mode: 'cors'
     };
