@@ -5,7 +5,11 @@ import mainReducer from './reducers/mainReducer';
 
 const initialState = {
   header: {
+    isLoginErrorShown: false,
     isLoginModalShown: false,
+    isLoginSuccessShown: false,
+    loginError: '',
+    loginSuccess: '',
     user: {
       username: '',
       password: ''

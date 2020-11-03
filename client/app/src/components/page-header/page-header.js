@@ -2,13 +2,14 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faEnvelope, faWifi, faUser, faTimes, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons';
-import { Navbar, Nav, NavDropdown, Modal, Button, Form, Alert } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Modal, Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {
   login,
   toggleLoginModal,
   updateUser
-} from '../../actions/mainActions';
+} from '../../actions/headerActions';
+import LoginAlert from './login-alert';
 import './page-header.css';
 
 const PageHeader = (props) => {
@@ -101,8 +102,8 @@ const PageHeader = (props) => {
             <Form.Group controlId="password">
               <Form.Control type="password" placeholder="Your password" onChange={ updatePassword } />
             </Form.Group>
-            <Alert variant="secondary" dismissible>Danger content here</Alert>
-            <Alert variant="success" dismissible>Success content here</Alert>
+            <LoginAlert type="error" />
+            <LoginAlert type="success" />
           </Form>
         </Modal.Body>
         <Modal.Footer>
