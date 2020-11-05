@@ -2,10 +2,13 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
 
 from api.models import Movie, Rating
 from api.serializers import MovieSerializer, RatingSerializer, UserSerializer
@@ -59,3 +62,15 @@ class RatingViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         message = {'message': 'You cant do that'}
         return Response(message, HTTP_400_BAD_REQUEST)
+
+
+class CustomAuthToken(ObtainAuthToken):
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        try:
+            serializer.is_valid(raise_exception=True)
+            token, created = Token.objects.get_or_create(user=serializer.validated_data['user'])
+            return Response({'token': token.key}, HTTP_200_OK)
+        except ValidationError:
+            return Response({'message': 'Unable to login'}, HTTP_401_UNAUTHORIZED)
