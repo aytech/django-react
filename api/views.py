@@ -73,4 +73,4 @@ class CustomAuthToken(ObtainAuthToken):
             token, created = Token.objects.get_or_create(user=serializer.validated_data['user'])
             return Response({'token': token.key}, HTTP_200_OK)
         except ValidationError:
-            return Response({'message': 'Unable to login'}, HTTP_401_UNAUTHORIZED)
+            return Response({'message': 'Unable to login with provided credentials'}, HTTP_401_UNAUTHORIZED)

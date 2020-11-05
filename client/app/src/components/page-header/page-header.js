@@ -5,6 +5,8 @@ import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { Navbar, Nav, NavDropdown, Modal, Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {
+  clearModalMessages,
+  clearUser,
   login,
   toggleLoginModal,
   updateUser
@@ -13,7 +15,11 @@ import LoginAlert from './login-alert';
 import './page-header.css';
 
 const PageHeader = (props) => {
-  const openModal = () => props.toggleLoginModal(true)
+  const openModal = () => {
+    props.clearModalMessages()
+    props.clearUser()
+    props.toggleLoginModal(true)
+  }
   const closeModal = () => props.toggleLoginModal(false)
   const login = () => {
     props.login(props.header.user)
@@ -125,6 +131,8 @@ const mapStateToProps = state => ({
   ...state
 });
 const mapDispatchToProps = dispatch => ({
+  clearModalMessages: () => dispatch(clearModalMessages()),
+  clearUser: () => dispatch(clearUser()),
   login: (user) => dispatch(login(user)),
   toggleLoginModal: (status) => dispatch(toggleLoginModal(status)),
   updateUser: (user) => dispatch(updateUser(user))

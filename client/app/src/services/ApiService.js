@@ -22,10 +22,7 @@ class ApiService {
       method: 'POST',
       mode: 'cors'
     };
-    const request = await fetch(`${this.authPath}`, data)
-    const response = await request.json()
-    response.status = request.status
-    return response
+    return this.getResource(this.authPath, data)
   }
 }
 
