@@ -4,6 +4,7 @@ import { faHome, faEnvelope, faWifi, faUser, faTimes, faSignInAlt } from '@forta
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons';
 import { Navbar, Nav, NavDropdown, Modal, Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next'
 import {
   clearModalMessages,
   clearUser,
@@ -15,6 +16,7 @@ import LoginAlert from './login-alert';
 import './page-header.css';
 
 const PageHeader = (props) => {
+  const { t } = useTranslation()
   const openModal = () => {
     props.clearModalMessages()
     props.clearUser()
@@ -22,7 +24,7 @@ const PageHeader = (props) => {
   }
   const closeModal = () => props.toggleLoginModal(false)
   const login = () => {
-    props.login(props.header.user)
+    props.login(props.header.user, t)
   }
   const updateUsername = (event) => {
     props.updateUser({
@@ -39,7 +41,7 @@ const PageHeader = (props) => {
   return (
     <React.Fragment>
       <Navbar bg="primary" expand="lg" variant="dark">
-        <Navbar.Brand href="/">Boilerplate Django App</Navbar.Brand>
+        <Navbar.Brand href="/">{ t('App name') }</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-minty" />
         <Navbar.Collapse id="navbar-minty">
           <Nav className="mr-auto">
@@ -47,39 +49,39 @@ const PageHeader = (props) => {
               <span className="icon">
                 <FontAwesomeIcon icon={ faHome } />
               </span>
-              <span className="label">Home</span>
+              <span className="label">{ t('Home') }</span>
             </Nav.Link>
             <Nav.Link href="/">
               <span className="icon">
                 <FontAwesomeIcon icon={ faEnvelope } />
               </span>
-              <span className="label">Contact</span>
+              <span className="label">{ t('Contact') }</span>
             </Nav.Link>
-            <NavDropdown title="Products" id="navbar-minty-dropdown">
+            <NavDropdown title={ t('Products') } id="navbar-minty-dropdown">
               <NavDropdown.Item href="/">
                 <span className="icon">
                   <FontAwesomeIcon icon={ faLinux } />
                 </span>
-                <span className="label">Item 1</span>
+                <span className="label">{ t('Item') } 1</span>
               </NavDropdown.Item>
               <NavDropdown.Item href="/">
                 <span className="icon">
                   <FontAwesomeIcon icon={ faApple } />
                 </span>
-                <span className="label">Item 2</span>
+                <span className="label">{ t('Item') } 2</span>
               </NavDropdown.Item>
               <NavDropdown.Item href="/">
                 <span className="icon">
                   <FontAwesomeIcon icon={ faWindows } />
                 </span>
-                <span className="label">Item 3</span>
+                <span className="label">{ t('Item') } 3</span>
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/">
                 <span className="icon">
                   <FontAwesomeIcon icon={ faWifi } />
                 </span>
-                <span className="label">Separated Item</span>
+                <span className="label">{ t('Separated item') }</span>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
@@ -88,7 +90,7 @@ const PageHeader = (props) => {
               <span className="icon">
                 <FontAwesomeIcon icon={ faUser } />
               </span>
-              <span className="label">Login</span>
+              <span className="label">{ t('Login') }</span>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
@@ -97,16 +99,16 @@ const PageHeader = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <FontAwesomeIcon icon={ faUser } />
-            <span className="label">Login</span>
+            <span className="label">{ t('Login') }</span>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group controlId="username">
-              <Form.Control type="email" placeholder="Your user name" onChange={ updateUsername } />
+              <Form.Control type="email" placeholder={ t('Your user name') } onChange={ updateUsername } />
             </Form.Group>
             <Form.Group controlId="password">
-              <Form.Control type="password" placeholder="Your password" onChange={ updatePassword } />
+              <Form.Control type="password" placeholder={ t('Your password') } onChange={ updatePassword } />
             </Form.Group>
             <LoginAlert type="error" />
             <LoginAlert type="success" />
@@ -115,11 +117,11 @@ const PageHeader = (props) => {
         <Modal.Footer>
           <Button variant="secondary" onClick={ closeModal }>
             <FontAwesomeIcon icon={ faTimes } />
-            <span className="label">Close</span>
+            <span className="label">{ t('Close') }</span>
           </Button>
           <Button variant="primary" onClick={ login }>
             <FontAwesomeIcon icon={ faSignInAlt } />
-            <span className="label">Login</span>
+            <span className="label">{ t('Login') }</span>
           </Button>
         </Modal.Footer>
       </Modal>
@@ -133,7 +135,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   clearModalMessages: () => dispatch(clearModalMessages()),
   clearUser: () => dispatch(clearUser()),
-  login: (user) => dispatch(login(user)),
+  login: (user, t) => dispatch(login(user, t)),
   toggleLoginModal: (status) => dispatch(toggleLoginModal(status)),
   updateUser: (user) => dispatch(updateUser(user))
 });

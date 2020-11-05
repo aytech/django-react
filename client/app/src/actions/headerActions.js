@@ -1,4 +1,4 @@
-import Cookies from 'universal-cookie/lib';
+import Cookies from 'universal-cookie/lib'
 import {
   TOGGLE_LOGIN_ERROR,
   TOGGLE_LOGIN_MODAL,
@@ -6,12 +6,12 @@ import {
   UPDATE_LOGIN_ERROR,
   UPDATE_LOGIN_SUCCESS,
   UPDATE_USER
-} from './constants';
-import ApiService from '../services/ApiService';
-import { is_user_valid } from '../services/Validator';
-import { 
+} from './constants'
+import ApiService from '../services/ApiService'
+import { is_user_valid } from '../services/Validator'
+import {
   HTTP_200_OK,
-  HTTP_401_UNAUTHORIZED 
+  HTTP_401_UNAUTHORIZED
 } from '../services/HttpStatuses'
 
 const cookies = new Cookies()
@@ -21,9 +21,9 @@ const handleLoginError = (dispatch, error) => {
   dispatch(toggleLoginSuccess(false))
   dispatch(toggleLoginError(true))
 }
-const handleLoginSuccess = (dispatch, token) => {
+const handleLoginSuccess = (dispatch, token, t) => {
   cookies.set('token', token)
-  dispatch(loginSuccessMessage('Login successful'))
+  dispatch(loginSuccessMessage(t('Login successful')))
   dispatch(toggleLoginError(false))
   dispatch(toggleLoginSuccess(true))
   dispatch(toggleLoginModal(false))
@@ -46,10 +46,10 @@ export const clearModalMessages = () => {
 }
 export const clearUser = () => {
   return (dispatch) => {
-    dispatch(updateUser({username: '', password: ''}))
+    dispatch(updateUser({ username: '', password: '' }))
   }
 }
-export const login = (user) => {
+export const login = (user, t) => {
   return (dispatch) => {
     if (is_user_valid(user)) {
       apiService
@@ -59,16 +59,16 @@ export const login = (user) => {
             return handleLoginError(dispatch, response.message)
           }
           if (response.status === HTTP_200_OK) {
-            return handleLoginSuccess(dispatch, response.token)
+            return handleLoginSuccess(dispatch, response.token, t)
           }
-          handleLoginError(dispatch, 'Unexpected error, please contact administrator')
+          handleLoginError(dispatch, t('Unexpected error, please contact administrator'))
         })
         .catch(error => {
           console.error('Fatal server error: ', error);
-          handleLoginError(dispatch, 'Unexpected error, please contact administrator')
+          handleLoginError(dispatch, t('Unexpected error, please contact administrator'))
         })
     } else {
-      dispatch(loginErrorMessage('Please provide username and pasword'))
+      dispatch(loginErrorMessage(t('Please provide username and pasword')))
       dispatch(toggleLoginError(true))
     }
   }

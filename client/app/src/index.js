@@ -8,6 +8,7 @@ import configureStore from './store';
 import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootswatch/dist/minty/bootstrap.min.css';
+import './i18n'
 import './index.css';
 
 const history = createBrowserHistory();
