@@ -1,47 +1,41 @@
 import {
-  TOGGLE_LOGIN_ERROR,
   TOGGLE_LOGIN_MODAL,
+  TOGGLE_LOGIN_ERROR,
   TOGGLE_LOGIN_SUCCESS,
   UPDATE_LOGIN_ERROR,
-  UPDATE_LOGIN_SUCCESS,
-  UPDATE_USER
+  UPDATE_LOGIN_SUCCESS
 } from '../actions/constants';
 
-const headerReducer = (state = {}, action) => {
+const loginReducer = (state = {}, action) => {
   switch (action.type) {
     case TOGGLE_LOGIN_ERROR:
       return {
         ...state,
-        isLoginErrorShown: action.status
+        isErrorShown: action.status
       }
     case TOGGLE_LOGIN_MODAL:
       return {
         ...state,
-        isLoginModalShown: action.status
+        isModalShown: action.status
       }
     case TOGGLE_LOGIN_SUCCESS:
       return {
         ...state,
-        isLoginSuccessShown: action.status
+        isSuccessShown: action.status
       }
     case UPDATE_LOGIN_ERROR:
       return {
         ...state,
-        loginError: action.message
+        error: action.message
       }
     case UPDATE_LOGIN_SUCCESS:
       return {
         ...state,
-        loginSuccess: action.message
-      }
-    case UPDATE_USER:
-      return {
-        ...state,
-        user: action.user
+        success: action.message
       }
     default:
       return state;
   }
 }
 
-export default headerReducer
+export default loginReducer

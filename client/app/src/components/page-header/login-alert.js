@@ -4,22 +4,22 @@ import { connect } from 'react-redux';
 import {
   toggleLoginError,
   toggleLoginSuccess
-} from '../../actions/headerActions';
+} from '../../actions/loginActions';
 
 const LoginAlert = (props) => {
 
   const closeError = () => props.toggleLoginError(false)
   const closeSuccess = () => props.toggleLoginSuccess(false)
 
-  if (props.type === 'error' && props.header.isLoginErrorShown === true) {
+  if (props.type === 'error' && props.login.isErrorShown === true) {
     return (
-      <Alert variant="secondary" onClose={ closeError } dismissible>{ props.header.loginError }</Alert>
+      <Alert variant="secondary" onClose={ closeError } dismissible>{ props.login.error }</Alert>
     )
   }
 
-  if (props.type === 'success' && props.header.isLoginSuccessShown === true) {
+  if (props.type === 'success' && props.login.isSuccessShown === true) {
     return (
-      <Alert variant="success" onClose={ closeSuccess } dismissible>{ props.header.loginSuccess }</Alert>
+      <Alert variant="success" onClose={ closeSuccess } dismissible>{ props.login.success }</Alert>
     )
   }
 

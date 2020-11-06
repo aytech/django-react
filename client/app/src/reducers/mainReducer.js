@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import appReducer from './appReducer';
-import headerReducer from './headerReducer';
+import loginReducer from './loginReducer';
 
 export default combineReducers({
-    header: headerReducer,
+    login: loginReducer,
     app: appReducer
 })

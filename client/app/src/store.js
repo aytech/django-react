@@ -4,18 +4,19 @@ import thunkMiddleware from 'redux-thunk';
 import mainReducer from './reducers/mainReducer';
 
 const initialState = {
-  header: {
-    isLoginErrorShown: false,
-    isLoginModalShown: false,
-    isLoginSuccessShown: false,
-    loginError: '',
-    loginSuccess: '',
-    user: {
-      username: '',
-      password: ''
-    }
+  login: {
+    isErrorShown: false,
+    isModalShown: false,
+    isSuccessShown: false,
+    error: '',
+    success: ''
   },
-  app: {}
+  app: {
+    user: {
+      name: '',
+      token: ''
+    }
+  }
 };
 
 const loggerMiddleware = createLogger();

@@ -1,11 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faEnvelope, faWifi, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { Translation } from 'react-i18next'
+import { toggleLoginModal } from '../../actions/loginActions'
 
 const AppNavbar = (props) => {
+
+  const openModal = () => props.toggleLoginModal(true)
+
   return (
     <Translation>
       {
@@ -56,7 +61,7 @@ const AppNavbar = (props) => {
                 </NavDropdown>
               </Nav>
               <Nav className="mr-auto">
-                <Nav.Item onClick={ props.openModal } className="login">
+                <Nav.Item onClick={ openModal } className="login">
                   <span className="icon">
                     <FontAwesomeIcon icon={ faUser } />
                   </span>
@@ -71,4 +76,11 @@ const AppNavbar = (props) => {
   )
 }
 
-export default AppNavbar
+const mapStateToProps = state => ({
+  ...state
+});
+const mapDispatchToProps = dispatch => ({
+  toggleLoginModal: (status) => dispatch(toggleLoginModal(status))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavbar);

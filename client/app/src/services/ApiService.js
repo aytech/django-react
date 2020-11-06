@@ -6,16 +6,16 @@ class ApiService {
   cookies = new Cookies()
 
   async getResource(url, data) {
-    const resource = await fetch(`${this.apiBase}${url}`, data);
+    const resource = await fetch(`${ this.apiBase }${ url }`, data);
     const response = await resource.json();
     response.status = resource.status;
     return response;
   }
 
-  login = async (user) => {
+  login = async (username, password) => {
     const data = {
-      body: JSON.stringify(user),
-      headers: { 
+      body: JSON.stringify({ username, password }),
+      headers: {
         'Content-Type': 'application/json',
         'X-CSRFToken': this.cookies.get('csrftoken')
       },
