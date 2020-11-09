@@ -4,6 +4,7 @@ import './page-header.css'
 import Cookies from 'universal-cookie/lib'
 import AppNavbar from './app-navbar'
 import LoginModal from './login-modal'
+import { retrieveUser } from '../../actions/appActions'
 
 class PageHeader extends Component {
 
@@ -14,41 +15,12 @@ class PageHeader extends Component {
     }
   }
 
-  openModal = () => {
-    // this.props.clearModalMessages()
-    // this.props.clearUser()
-    // this.props.toggleLoginModal(true)
-  }
-
-  // closeModal = () => this.props.toggleLoginModal(false)
-  // closeModal = () => {
-  //   this.setState({ isModalOpen: false })
-  // }
-
-  // login = (t) => {
-  //   this.props.login(this.props.header.user, t)
-  // }
-
-  // updateUsername = (event) => {
-  //   this.props.updateUser({
-  //     username: event.target.value,
-  //     password: this.props.header.user.password
-  //   })
-  // }
-
-  // updatePassword = (event) => {
-  //   this.props.updateUser({
-  //     username: this.props.header.user.username,
-  //     password: event.target.value
-  //   })
-  // }
-
   componentDidMount() {
-    const cookie = new Cookies()
-    if (cookie.get('token') !== undefined) {
-      console.log('Figuring out if user is logged in');
+    const token = new Cookies().get('token')
+    if (token === undefined) {
+      this.setState({ isLoggedIn: false })
     } else {
-      console.log('User is not logged in');
+      this.props.retrieveUser(token)
     }
   }
 
@@ -65,6 +37,8 @@ class PageHeader extends Component {
 const mapStateToProps = state => ({
   ...state
 });
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  retrieveUser: (token) => dispatch(retrieveUser(token))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageHeader);

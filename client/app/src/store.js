@@ -13,7 +13,7 @@ const initialState = {
   },
   app: {
     user: {
-      name: '',
+      username: '',
       token: ''
     }
   }

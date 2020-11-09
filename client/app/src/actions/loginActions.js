@@ -11,13 +11,14 @@ import {
 } from '../services/HttpStatuses'
 import ApiService from '../services/ApiService'
 import Cookies from 'universal-cookie/lib'
+import { updateUser } from './appActions'
 
 const apiService = new ApiService();
 const cookies = new Cookies()
-const handleLoginSuccess = (dispatch, token, t) => {
-  cookies.set('token', token)
-  dispatch(addSuccessMessage(t('Login successful')))
-  dispatch(toggleLoginSuccess(true))
+const handleLoginSuccess = (dispatch, data, t) => {
+  cookies.set('token', data.token)
+  dispatch(updateUser({ username: data.username, token: data.token }))
+  dispatch(toggleLoginModal(false))
 }
 const handleLoginError = (dispatch, error) => {
   dispatch(addErrorMessage(error))
@@ -46,7 +47,7 @@ export const userLogin = (username, password, t) => {
           return handleLoginError(dispatch, response.message)
         }
         if (response.status === HTTP_200_OK) {
-          return handleLoginSuccess(dispatch, response.token, t)
+          return handleLoginSuccess(dispatch, response, t)
         }
         handleLoginError(dispatch, t('Unexpected error, please contact administrator'))
       })
@@ -54,5 +55,11 @@ export const userLogin = (username, password, t) => {
         console.error('Fatal server error: ', error);
         handleLoginError(dispatch, t('Unexpected error, please contact administrator'))
       })
+  }
+}
+export const userLogout = () => {
+  return (dispatch) => {
+    cookies.remove('token')
+    dispatch(updateUser({ username: '', token: '' }))
   }
 }

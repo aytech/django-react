@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie/lib'
 class ApiService {
   apiBase = '/api';
   authPath = '/auth/';
+  userRetrievePath = '/users/retrieve/';
   cookies = new Cookies()
 
   async getResource(url, data) {
@@ -23,6 +24,18 @@ class ApiService {
       mode: 'cors'
     };
     return this.getResource(this.authPath, data)
+  }
+
+  getUser = async (token) => {
+    const data = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${token}`
+      },
+      method: 'GET',
+      mode: 'cors'
+    }
+    return this.getResource(this.userRetrievePath, data)
   }
 }
 

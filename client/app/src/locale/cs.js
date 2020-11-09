@@ -6,10 +6,10 @@ const cs = {
     'Home': 'Domů',
     'Item': 'Položka',
     'Login': 'Přihlášení',
-    'Login successful': 'Přihlášení bylo úspěšné',
     'Please provide username and pasword': 'Zadejte prosím uživatelské jméno a heslo',
     'Products': 'Produkty',
     'Separated item': 'Oddělená položka',
+    'Sign out': 'Odhlásit se',
     'Unexpected error, please contact administrator': 'Neočekávaná chyba, kontaktujte administrátora',
     'Your password': 'Vaše heslo',
     'Your user name': 'Vaše uživatelské jméno'

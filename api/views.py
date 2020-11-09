@@ -6,7 +6,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
 
@@ -18,7 +18,16 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (AllowAny,)
+
+    def retrieve(self, request, *args, **kwargs):
+        return Response({'username': request.user.get_username()}, HTTP_200_OK)
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [IsAdminUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
 
 
 class MovieViewSet(viewsets.ModelViewSet):
@@ -70,7 +79,8 @@ class CustomAuthToken(ObtainAuthToken):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         try:
             serializer.is_valid(raise_exception=True)
-            token, created = Token.objects.get_or_create(user=serializer.validated_data['user'])
-            return Response({'token': token.key}, HTTP_200_OK)
+            user = serializer.validated_data['user']
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'username': user.get_username(), 'token': token.key}, HTTP_200_OK)
         except ValidationError:
             return Response({'message': 'Unable to login with provided credentials'}, HTTP_401_UNAUTHORIZED)
