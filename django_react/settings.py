@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'tinymce',
     'api',
     'client',
 ]
@@ -119,7 +120,25 @@ USE_L10N = True
 
 USE_TZ = True
 
+# TinyMCE
+TINYMCE_DEFAULT_CONFIG = {
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+    'plugins': "advlist,anchor,autolink,autoresize,autosave,bbcode,charmap,code,codesample,colorpicker,contextmenu,"
+               "directionality,emoticons,fullpage,fullscreen,help,hr,image,imagetools,importcss,insertdatetime,"
+               "legacyoutput,link,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,quickbars,save,"
+               "searchreplace,spellchecker,tabfocus,table,template,textcolor,textpattern,toc,visualblocks,"
+               "visualchars,wordcount",
+    'theme': "silver",
+    'images_upload_url': '/',
+    'language': 'cs',
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'client', 'app', 'build'),
+)
