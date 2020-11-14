@@ -7,6 +7,10 @@ class Movie(models.Model):
     title = models.CharField(max_length=32)
     description = models.TextField(max_length=360)
 
+    created = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(auto_now=True)
+    deleted = models.BooleanField(null=False, default=False)
+
     def no_of_ratings(self):
         return len(Rating.objects.filter(movie=self))
 
@@ -19,6 +23,9 @@ class Movie(models.Model):
             return sum_ratings / len(ratings)
         else:
             return 0
+
+    def __str__(self):
+        return self.title
 
 
 class Rating(models.Model):

@@ -124,15 +124,18 @@ USE_TZ = True
 TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 10,
-    'plugins': "advlist,anchor,autolink,autoresize,autosave,bbcode,charmap,code,codesample,colorpicker,contextmenu,"
-               "directionality,emoticons,fullpage,fullscreen,help,hr,image,imagetools,importcss,insertdatetime,"
-               "legacyoutput,link,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,quickbars,save,"
-               "searchreplace,spellchecker,tabfocus,table,template,textcolor,textpattern,toc,visualblocks,"
-               "visualchars,wordcount",
+    'plugins': 'bbcode,code,colorpicker,link,lists,paste,preview,searchreplace,spellchecker,textcolor,wordcount',
+    # All available:
+    # 'plugins': "advlist,anchor,autolink,autoresize,autosave,bbcode,charmap,code,codesample,colorpicker,contextmenu,"
+    #            "directionality,emoticons,fullpage,fullscreen,help,hr,image,imagetools,importcss,insertdatetime,"
+    #            "legacyoutput,link,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,quickbars,save,"
+    #            "searchreplace,spellchecker,tabfocus,table,template,textcolor,textpattern,toc,visualblocks,"
+    #            "visualchars,wordcount",
     'theme': "silver",
     'images_upload_url': '/',
     'language': 'cs',
 }
+TINYMCE_SPELLCHECKER = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
